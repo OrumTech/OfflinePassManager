@@ -29,6 +29,11 @@ hash_b642 = base64.b85encode(hash_sha22).decode()
 hash_sha222 = hashlib.sha256(ps3.encode()).digest()
 hash_b643 = base64.b85encode(hash_sha222).decode()
 
+
+print(hash_b641)
+print(hash_b642)
+print(hash_b643)
+
 if os.path.getsize(r"D:\DockerFiles\Project\pass.py") == 2266:
     print("0K")
 
