@@ -15,7 +15,7 @@ while True:
 
 print(user_pass_dic)
 
-def cutter(listkey, listval):
+def hash_finder(listkey, listval):
     keys = [0]
     for i in listkey:
         keys.append(i + str(keys[0]))
@@ -50,7 +50,7 @@ def cutter(listkey, listval):
     
     return list(set(hash_nums_map))
 
-def master_pass_mapping(minimum_char):
+def master_pass_set(minimum_char):
     while True:
         master_password = input(f"Enter your password with {minimum_char} characters or exit")
         if master_password == "exit":
@@ -62,13 +62,13 @@ def master_pass_mapping(minimum_char):
         else:
             print(f"your password too small, must be minimum {minimum_char} character")    
 
-def create_fake_dict(length, char_set, min_val=0, max_val=10):
-    fake_dict = {}
-    while len(fake_dict) < length:
-        key = random.choice(char_set)
-        value = random.randint(min_val, max_val)
-        fake_dict[key] = value   # اگر کلید تکراری باشد، طول تغییری نمی‌کند
-    return fake_dict
+# def create_fake_dict(length, char_set, min_val=0, max_val=10):
+#     fake_dict = {}
+#     while len(fake_dict) < length:
+#         key = random.choice(char_set)
+#         value = random.randint(min_val, max_val)
+#         fake_dict[key] = value   # اگر کلید تکراری باشد، طول تغییری نمی‌کند
+#     return fake_dict
 
 def mapping(hash_num_maps:list, master_password:str, hash_length:int):
     new_master_pass = [str(i) for i in master_password]
@@ -81,8 +81,7 @@ def mapping(hash_num_maps:list, master_password:str, hash_length:int):
         for hass , maspas in zip(str(hash_num_maps[number]), new_master_pass.copy()):
             randomize_cache[maspas] = hass
             del new_master_pass[new_master_pass.index(maspas)]
-            print(randomize_cache)
-            print("AAAAAAAAAAAAAAAAAAAA")
+
         while len(randomize_cache) < 50:
             key = random.choice(all_chars)
             if key not in randomize_cache:
@@ -100,23 +99,21 @@ def mapping(hash_num_maps:list, master_password:str, hash_length:int):
 
     # random.shuffle(list_of_tables)
 
-
-
-    print(list_of_tables)
-
+    return list_of_tables
 
 
 
 
+# _______________________________________________________Run
 
-lol = cutter(user_pass_dic.keys(), user_pass_dic.values())
+# lol = hash_finder(user_pass_dic.keys(), user_pass_dic.values())
 
-pass_check = ""
-for i in lol:
-    pass_check += str(i)
+# pass_check = ""
+# for i in lol:
+#     pass_check += str(i)
 
-my_password = master_pass_mapping(len(pass_check))
-print(lol)
-mapping(lol, my_password, len(pass_check))
+# my_password = master_pass_set(len(pass_check))
+# print(lol)
+# list_of_encrypted = mapping(lol, my_password, len(pass_check))
 
 # پسوردم اصلی رو جوری تغییر میده به عدد پیدا شده b85 تا بعدش بتونم یوزر و پسورد رو از هشش بیرون بکشم
