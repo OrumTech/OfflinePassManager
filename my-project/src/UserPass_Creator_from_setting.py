@@ -33,4 +33,10 @@ for num in chunk_num:
     del user_input[:num]
 
 print(user_input_to_hash)
-    
+# 15 OK
+for i in user_input_to_hash:
+    hash_num = ''
+    for char in i:
+        hash_num += str(list_of_encrypted[user_input_to_hash.index(i)].get(char))
+    hash_num = int(hash_num)
+    print(hash_num)
