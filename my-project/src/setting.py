@@ -50,6 +50,61 @@ def hash_finder(listkey, listval):
     
     return list(set(hash_nums_map))
 
+# def hash_finder(listkey, listval, start=100, end=1_000_000):
+#     # ساخت مجموعه کاراکترهای نهایی
+#     all_chars = set()
+#     for key in listkey:
+#         all_chars.update(key)
+#     for val in listval:
+#         all_chars.update(val)
+#     all_chars = sorted(all_chars)  # تبدیل به لیست مرتب
+#     total_chars = len(all_chars)
+#     print(f"\n🔍 مجموعه کاراکترهای مورد نیاز ({total_chars} عدد): {all_chars}")
+    
+#     # تلاش با 1، 2، 3، ... هش
+#     for num_parts in range(1, total_chars + 1):
+#         # تقسیم به قطعات تقریباً مساوی
+#         part_size = (total_chars + num_parts - 1) // num_parts
+#         chunks = []
+#         for i in range(0, total_chars, part_size):
+#             chunk = set(all_chars[i:i+part_size])
+#             if chunk:
+#                 chunks.append(chunk)
+#         # ادغام قطعات اضافی (در صورت نیاز)
+#         while len(chunks) > num_parts:
+#             chunks[-2] = chunks[-2].union(chunks[-1])
+#             chunks.pop()
+        
+#         print(f"\n🔄 تلاش با {num_parts} هش – اندازه قطعات: {[len(c) for c in chunks]}")
+#         print(f"   قطعات: {chunks}")
+        
+#         found_hashes = []
+#         all_found = True
+        
+#         for idx, chunk in enumerate(chunks):
+#             print(f"   جستجوی قطعه {idx+1}: {chunk}")
+#             found = False
+#             for s in range(start, end+1):
+#                 b85 = base64.b85encode(hashlib.sha512(str(s).encode()).digest()).decode()
+#                 # شرط اصلی: همه کاراکترهای chunk باید در b85 باشند
+#                 if all(c in b85 for c in chunk):
+#                     print(f"   ✅ قطعه {idx+1} با هش عدد {s} پوشش داده شد.")
+#                     print(f"      هش: {b85}")
+#                     found_hashes.append(s)
+#                     found = True
+#                     break
+#             if not found:
+#                 print(f"   ❌ قطعه {idx+1} در بازه {start}-{end} پوشش داده نشد.")
+#                 all_found = False
+#                 break  # برو به تعداد قطعات بعدی
+        
+#         if all_found:
+#             print(f"\n🎉 موفقیت! {len(found_hashes)} هش پیدا شد: {found_hashes}")
+#             return found_hashes
+    
+#     print(f"\n💔 هیچ پوششی در بازه {start}-{end} یافت نشد.")
+#     return []
+
 def master_pass_set(minimum_char):
     while True:
         master_password = input(f"Enter your password with {minimum_char} characters or exit")
@@ -82,16 +137,16 @@ def mapping(hash_num_maps:list, master_password:str, hash_length:int):
             randomize_cache[maspas] = hass
             del new_master_pass[new_master_pass.index(maspas)]
 
-        while len(randomize_cache) < 50:
-            key = random.choice(all_chars)
-            if key not in randomize_cache:
-                value = random.randint(0, 9)
-                randomize_cache[key] = value
+            while len(randomize_cache) < 20:
+                key = random.choice(all_chars)
+                if key not in randomize_cache:
+                    value = random.randint(0, 9)
+                    randomize_cache[key] = value
 
-        items = list(randomize_cache.items()) 
-        random.shuffle(items)
-        shuffled_dict = dict(items)
-        list_of_tables.append(shuffled_dict)
+            items = list(randomize_cache.items()) 
+            random.shuffle(items)
+            shuffled_dict = dict(items)
+            list_of_tables.append(shuffled_dict)
     
     # for _ in range(hallucinator_table):
     #     fake_dict = create_fake_dict(30, all_chars, 0, 10)
