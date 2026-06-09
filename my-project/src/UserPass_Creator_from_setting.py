@@ -37,14 +37,14 @@ for num in chunk_num:
 
 print(f"IIIIIIIIIIIII {user_input_to_hash}")
 # 15 OK
-hash_num_list = []
-for i in user_input_to_hash:
-    hash_num = ''
-    for char in i:
-        hash_num += str(list_of_encrypted[user_input_to_hash.index(i)].get(char))
-    # hash_num = int(hash_num)
-    hash_num_list.append(hash_num)
-
+# hash_num_list = []
+# for i in user_input_to_hash:
+#     hash_num = ''
+#     for char in i:
+#         hash_num += str(list_of_encrypted[user_input_to_hash.index(i)].get(char))
+#     # hash_num = int(hash_num)
+#     hash_num_list.append(hash_num)
+# print(f"DELLLLLLLLLLLLL {hash_num_list}")
 #------------------------------------------------------------ New 6/9/2026
 hash_lis = []
 
@@ -57,24 +57,36 @@ for chunk in user_input_to_hash:
     new_gen_hash = int(new_gen_hash)
     hash_lis.append(new_gen_hash)
 print(f"JJJJJJJJJJJJJJJJJ {hash_lis}")
-#------------------------------------------------------------ Exp
+#------------------------------------------------------------ Exp -- > Updated
 hash_list = []
-for has in hash_num_list:
-    a = hashlib.sha512(has.encode()).digest()
+for has in hash_lis:
+    a = hashlib.sha512(str(has).encode()).digest()
     b = base64.b85encode(a).decode()
     hash_list.append(b)
 
 print(hash_list)
 #----------------------------------------------------------find and create The Username/Email and Password in hash
-uuu = []
+keys_index_tuple = []
 ppp = []
 print(user_pass_dic)
+kw_counter = 0
 for kw in user_pass_dic.keys(): # ['sdsd','sdsd', ...]
+    tuple_counter = 0
+    uuu = []
+
     for char in kw:
         for idx, hash_str in enumerate(hash_list):
             pos = hash_str.find(char)
             if pos != -1:
-                uuu.append((pos,hash_str))
+                try:
+                    if (uuu[tuple_counter - 1][1])[uuu[tuple_counter - 1][0]] != (uuu[tuple_counter][1])[uuu[tuple_counter][0]]:
+                        uuu.append((pos,hash_str))
+                except:
+                    continue
+        tuple_counter += 1
+
+    kw_counter += 1
+    keys_index_tuple.append(uuu)
 
 for kw in user_pass_dic.values(): # ['sdsd','sdsd', ...]
     for char in kw:
@@ -83,9 +95,18 @@ for kw in user_pass_dic.values(): # ['sdsd','sdsd', ...]
             if pos != -1:
                 ppp.append((pos,hash_str))
 
-print(uuu)
+print(keys_index_tuple)
 print(ppp)
 
 # همین الان فهمیدم که من دیکشنری ناشت مستر پسورد به عدد هش رو ندارم !
 # بلکه دیکشنری کلید به مقدار یوز و پسورد ها رو دارم!!
 # شایدم نمی دونم ؛ باید برسسی کنم
+
+# ------------------------------------------------------------- Recall to user and pass
+for lis in keys_index_tuple:
+    username = ""
+    for user in lis: 
+        indx, has = user
+        char = has[indx]
+        username += char
+    print(username)
