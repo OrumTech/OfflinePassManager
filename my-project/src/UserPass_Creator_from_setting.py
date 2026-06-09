@@ -1,7 +1,6 @@
 from setting import *
 import hashlib
 import base64
-import os
 
 lol = hash_finder(user_pass_dic.keys(), user_pass_dic.values())
 
@@ -10,12 +9,8 @@ for i in lol:
     pass_check += str(i)
 
 my_password = master_pass_set(len(pass_check))
-print(lol)
 list_of_encrypted = mapping(lol, my_password, len(pass_check))
 print(list_of_encrypted)
-
-# باید وقتی setting انجام شد و دیکشنری رو ساخت خودش رو از بین ببره
-# بعد از ساخت encrypt dic, chunk pass, map to chunk to dic, user passes caller
 
 user_input = [str(d) for d in input("pass: ")]
 # تا اینجا درسته خط 14 pass میشه. بعدش اینا باید حذف بشند.
@@ -36,15 +31,6 @@ for num in chunk_num:
     del user_input[:num]
 
 print(f"IIIIIIIIIIIII {user_input_to_hash}")
-# 15 OK
-# hash_num_list = []
-# for i in user_input_to_hash:
-#     hash_num = ''
-#     for char in i:
-#         hash_num += str(list_of_encrypted[user_input_to_hash.index(i)].get(char))
-#     # hash_num = int(hash_num)
-#     hash_num_list.append(hash_num)
-# print(f"DELLLLLLLLLLLLL {hash_num_list}")
 #------------------------------------------------------------ New 6/9/2026
 hash_lis = []
 
@@ -66,13 +52,22 @@ for has in hash_lis:
 
 print(hash_list)
 #----------------------------------------------------------find and create The Username/Email and Password in hash
+hash_dic = {}
+for idx, has in enumerate(hash_list):
+    hash_dic[has] = idx
+#--------------//////\\\\\\
+# Change This section:
+# wich hash must append by a tuple in the keys_index and values_indes
+
 keys_index_tuple = []
 values_index_tuple = []
+keys_index = []
+values_index = []
 print(user_pass_dic)
 
 for kw in user_pass_dic.keys(): # ['sdsd','sdsd', ...]
     uuu = []
-
+    uui = []
     for char in kw:
         for idx, hash_str in enumerate(hash_list):
             pos = hash_str.find(char)
@@ -80,13 +75,16 @@ for kw in user_pass_dic.keys(): # ['sdsd','sdsd', ...]
                 if len(uuu) > 0:
                     if (uuu[-1][1])[uuu[-1][0]] != hash_str[pos]:
                         uuu.append((pos,hash_str))
+                        uui.append((pos,hash_dic.get(hash_str)))
                 else:
                     uuu.append((pos,hash_str))
+                    uui.append((pos,hash_dic.get(hash_str)))
     keys_index_tuple.append(uuu)
+    keys_index.append(uui)
 
 for kw in user_pass_dic.values(): # ['sdsd','sdsd', ...]
     ppp = []
-
+    ppi = []
     for char in kw:
         for idx, hash_str in enumerate(hash_list):
             pos = hash_str.find(char)
@@ -94,16 +92,15 @@ for kw in user_pass_dic.values(): # ['sdsd','sdsd', ...]
                 if len(ppp) > 0:
                     if (ppp[-1][1])[ppp[-1][0]] != hash_str[pos]:
                         ppp.append((pos,hash_str))
+                        ppi.append((pos,hash_dic.get(hash_str)))
                 else:
                     ppp.append((pos,hash_str))
+                    ppi.append((pos,hash_dic.get(hash_str)))
     values_index_tuple.append(ppp)
-
+    values_index.append(ppi)
 print(keys_index_tuple)
 print(values_index_tuple)
 
-# همین الان فهمیدم که من دیکشنری ناشت مستر پسورد به عدد هش رو ندارم !
-# بلکه دیکشنری کلید به مقدار یوز و پسورد ها رو دارم!!
-# شایدم نمی دونم ؛ باید برسسی کنم
 
 # ------------------------------------------------------------- Recall to user and pass
 for lis in keys_index_tuple:
@@ -121,3 +118,6 @@ for lis in values_index_tuple:
         char = has[indx]
         password += char
     print(password)
+
+# باید ایندکس ها رو جایی ذخیره کنم.
+# بعد از زدن پسورد اصلی هشی تولید میشه که با توجه به اینکه هش درست هست یا نه ساخت به ایندکس کد درست رو میده
