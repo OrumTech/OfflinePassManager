@@ -12,7 +12,7 @@
 
 - **Modern Technological UI:** A sleek, minimalist dark-mode interface built with PySide6.
 - **Zero Master Pass Storage:** Your Master Password is never stored on disk or in the code. It is used as a mathematical "seed" to navigate the hash-map in real-time.
-- **Self-Compiling Architecture:** The Setup GUI (main_**[gui.py](http://gui.py/)**) generates a secure, standalone `.exe` (`runner_gui.exe`) containing your encrypted payload.
+- **Self-Compiling Architecture:** The Setup GUI (`main_gui.py`) generates a secure, standalone `.exe` (`runner_gui.exe`) containing your encrypted payload.
 - **Stealth Mode:** The generated executable runs in `--windowed` mode, meaning no ugly terminal windows—just a clean, professional GUI.
 - **Advanced Encryption Logic:** Uses a combination of SHA-512, Base85 encoding, and custom character mapping to prevent brute-force attacks.
 - **Secure Cleanup:** Automatically destroys temporary JSON data maps after the compilation process.
@@ -23,7 +23,7 @@
 
 The security of Tech-Vault relies on a two-stage process:
 
-**Stage 1: The Setup (main_**[gui.py](http://gui.py/)**)**
+**Stage 1: The Setup (`main_gui.py`)**
 1. **Input:** You enter your usernames and passwords.
 2. **Mapping:** The system generates a "Salt-Map" based on unique characters in your data.
 3. **Hash Generation:** It uses your **Master Password** to create a series of hash-tables (`list_of_encrypted`).
