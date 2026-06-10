@@ -88,4 +88,12 @@ This tool is designed for personal, offline security. While the encryption logic
 Contributions are welcome! If you have ideas for improving the mapping logic or the UI, feel free to fork the repo and submit a PR.
 
 ---
+
+**📜 License**
+
+This project is licensed under the **MIT License**. You are free to use, copy, and modify the software as long as the original copyright header and license file are preserved. 
+
+**Note:** The software is provided "as is", and the author disclaims all liability for any consequences resulting from its use.
+
+---
 *Created with ❤️ for the Privacy Community.*
